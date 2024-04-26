@@ -9,6 +9,7 @@ import TaskPendingView from "@/views/TaskPendingView.vue";
 import TaskView from "@/views/TaskView.vue";
 import TaskNewView from "@/views/TaskNewView.vue";
 import { useAuthStore } from "@/stores/counter";
+import TaskUpdateView from "@/views/TaskUpdateView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,8 +57,13 @@ const router = createRouter({
         },
         {
           path: "new-task",
-          name: "new tasks",
+          name: "new task",
           component: TaskNewView,
+        },
+        {
+          path: "task-update/:taskId",
+          name: "task update",
+          component: TaskUpdateView,
         },
       ],
     },

@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
 const propTask = defineProps({
   task:Object
 })
+const router = useRouter()
+
+const handleUpdate = (id:string)=>{
+  router.push(`profile/task-update/${id}`)
+}
 </script>
 <template>
   <div className="bg-zinc-800 max-w-xs w-full p-5 rounded-md" v-if="propTask.task">
@@ -12,9 +18,9 @@ const propTask = defineProps({
       </p>
       <div className="flex gap-4">
         <i className="pi pi-file-edit hover:text-gray-300 cursor-pointer text-gray-500 duration-200
+        text-2xl" @click="handleUpdate(propTask.task._id)"></i>
+        <i className="pi pi-trash hover:text-gray-300 cursor-pointer text-gray-500 duration-200
         text-2xl"></i>
-        <span className="pi pi-trash hover:text-gray-300 cursor-pointer text-gray-500 duration-200
-        text-2xl"></span>
       </div>
     </div>
     <h2
