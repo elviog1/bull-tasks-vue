@@ -6,16 +6,27 @@ import { onMounted, ref } from "vue";
 
 export interface Task {
   _id: string;
-  title:string;
-  description:string;
-  status:string;
-  date:Date;
+  title: string;
+  description: string;
+  status: string;
+  date: Date;
 }
 
 const authStore = useAuthStore();
 const userId = authStore.userId;
 const tasks = ref<Task[]>([]);
-onMounted(async () => {
+
+const handleDeleteTask = (id: string) => {
+  const response = axios
+    .delete(`http://localhost:4000/api/task/${id}`)
+    .then((res) => {
+      console.log(res);
+      getAllTasks();
+    })
+    .catch((e) => console.log(e));
+};
+
+const getAllTasks = async () => {
   try {
     const response = await axios.get(
       `http://localhost:4000/api/task/${userId}`
@@ -24,6 +35,10 @@ onMounted(async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+onMounted(async () => {
+  await getAllTasks();
 });
 </script>
 <template>
@@ -33,7 +48,12 @@ onMounted(async () => {
         All Tasks ({{ tasks?.length }})
       </h1>
       <div class="flex flex-wrap gap-4 justify-center">
-        <TaskCard v-for="task in tasks" :key="task._id" :task="task" />
+        <TaskCard
+          v-for="task in tasks"
+          :key="task._id"
+          :task="task"
+          @delete-task="handleDeleteTask"
+        />
       </div>
     </div>
   </div>

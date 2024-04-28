@@ -5,8 +5,9 @@ import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 const email = ref("");
 const password = ref("");
-const authStore = useAuthStore()
-const router = useRouter()
+const errors = ref([]);
+const authStore = useAuthStore();
+const router = useRouter();
 const loginUser = async () => {
   const userData = {
     email: email.value,
@@ -15,16 +16,24 @@ const loginUser = async () => {
   const response = await axios
     .post("http://localhost:4000/api/auth/login", userData)
     .then((res) => {
-      console.log(res)
-      const token = res.data.token
-      authStore.setToken(token)
-      router.push("profile")
+      console.log(res);
+      const token = res.data.token;
+      authStore.setToken(token);
+      router.push("profile");
     })
-    .catch(e => console.log(e));
+    .catch((e) => {
+      errors.value = e.response.data.message;
+      console.log(e.response.data.message);
+    });
 };
+console.log(errors.value);
 </script>
 <template>
-  <form action="" className="max-w-md bg-zinc-700 p-5 rounded-md" @submit.prevent="loginUser">
+  <form
+    action=""
+    className="max-w-md bg-zinc-700 p-5 rounded-md"
+    @submit.prevent="loginUser"
+  >
     <input
       type="email"
       className="p-2 my-2 rounded-md w-full"
@@ -51,6 +60,9 @@ const loginUser = async () => {
       >
         Sign up
       </RouterLink>
+    </p>
+    <p class="text-red-500 text-sm font-bold" v-for="error in errors">
+      {{ error }}
     </p>
   </form>
 </template>

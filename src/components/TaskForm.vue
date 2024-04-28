@@ -3,12 +3,13 @@ import { useAuthStore } from "@/stores/counter";
 import axios from "axios";
 import Calendar from "primevue/calendar";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 const date = ref<Date>(new Date());
 const title = ref("");
 const description = ref("");
 const authStore = useAuthStore();
 const userId = authStore.userId;
-
+const router = useRouter();
 const handleSubmit = async () => {
   const taskData = {
     title: title.value,
@@ -18,12 +19,18 @@ const handleSubmit = async () => {
   };
   const response = axios
     .post("http://localhost:4000/api/task", taskData)
-    .then((res) => console.log(res))
+    .then((res) => {
+      console.log(res);
+      router.push("/profile");
+    })
     .catch((e) => console.log(e));
 };
 </script>
 <template>
-  <form class="bg-zinc-700 max-w-md w-full p-5 rounded-md" @submit.prevent="handleSubmit">
+  <form
+    class="bg-zinc-700 max-w-md w-full p-5 rounded-md"
+    @submit.prevent="handleSubmit"
+  >
     <input
       className="w-full p-2 my-2 rounded-md "
       type="text"
