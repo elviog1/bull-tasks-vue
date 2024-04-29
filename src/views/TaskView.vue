@@ -3,7 +3,7 @@ import TaskCard from "@/components/TaskCard.vue";
 import axios from "axios";
 import { useAuthStore } from "@/stores/counter";
 import { onMounted, ref } from "vue";
-
+import Swal from "sweetalert2";
 export interface Task {
   _id: string;
   title: string;
@@ -17,13 +17,28 @@ const userId = authStore.userId;
 const tasks = ref<Task[]>([]);
 
 const handleDeleteTask = (id: string) => {
-  const response = axios
-    .delete(`http://localhost:4000/api/task/${id}`)
-    .then((res) => {
-      console.log(res);
-      getAllTasks();
-    })
-    .catch((e) => console.log(e));
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+      });
+      const response = axios
+        .delete(`http://localhost:4000/api/task/${id}`)
+        .then((res) => {
+          getAllTasks();
+        });
+    }
+  });
 };
 
 const getAllTasks = async () => {
