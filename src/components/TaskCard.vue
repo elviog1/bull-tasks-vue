@@ -5,17 +5,10 @@ import { useRouter } from 'vue-router';
 const propTask = defineProps({
   task:Object
 })
-console.log(propTask.task)
 const router = useRouter()
 
 const handleUpdate = (id:string)=>{
   router.push(`/profile/task-update/${id}`)
-}
-
-const handleDeleteTask = (id:string)=>{
-  const response = axios.delete(`https://bull-tasks-nest.onrender.com/api/task/${id}`).then(res => {
-    console.log(res)
-  }).catch(e => console.log(e))
 }
 
 const dateCreated = ref("")

@@ -21,11 +21,9 @@ const handleSubmit = async () => {
   const response = axios
     .post("https://bull-tasks-nest.onrender.com/api/task", taskData)
     .then((res) => {
-      console.log(res);
       router.push("/profile");
     })
     .catch((e) => {
-      console.log(e);
       errors.value = e.response.data.message;
     });
 };

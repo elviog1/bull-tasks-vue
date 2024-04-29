@@ -17,15 +17,12 @@ const registerUser = async () => {
   const response = await axios
     .post("https://bull-tasks-nest.onrender.com/api/auth/register", userData)
     .then((res) => {
-      console.log(res);
       router.push("/sign-in");
     })
     .catch((e) => {
       errors.value = e.response.data.message;
-      console.log(errors.value);
     });
 };
-console.log(errors.value);
 </script>
 <template>
   <form

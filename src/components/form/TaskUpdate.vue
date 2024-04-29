@@ -8,7 +8,6 @@ const propsTask = defineProps({
   task: Object,
 });
 const errors = ref([]);
-console.log(propsTask.task?.date);
 const handleUpdate = async () => {
   const taskData = {
     title: propsTask.task?.title,

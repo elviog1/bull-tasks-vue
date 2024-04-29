@@ -16,17 +16,17 @@ const loginUser = async () => {
   const response = await axios
     .post("https://bull-tasks-nest.onrender.com/api/auth/login", userData)
     .then((res) => {
-      console.log(res);
       const token = res.data.token;
-      authStore.setToken(token);
+      if(res.data.token){
+
+        authStore.setToken(token);
+      }
       router.push("profile");
     })
     .catch((e) => {
       errors.value = e.response.data.message;
-      console.log(e.response.data.message);
     });
 };
-console.log(errors.value);
 </script>
 <template>
   <form
