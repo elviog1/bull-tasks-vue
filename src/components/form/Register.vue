@@ -6,6 +6,7 @@ const username = ref("");
 const email = ref("");
 const password = ref("");
 const router = useRouter();
+const errors = ref([]);
 
 const registerUser = async () => {
   const userData = {
@@ -13,19 +14,18 @@ const registerUser = async () => {
     email: email.value,
     password: password.value,
   };
-
-  try {
-    const response = axios
-      .post("https://bull-tasks-nest.onrender.com/api/auth/register", userData)
-      .then((res) => {
-        console.log(res);
-        router.push("/sign-in");
-      })
-      .catch((e) => console.log(e));
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await axios
+    .post("https://bull-tasks-nest.onrender.com/api/auth/register", userData)
+    .then((res) => {
+      console.log(res);
+      router.push("/sign-in");
+    })
+    .catch((e) => {
+      errors.value = e.response.data.message;
+      console.log(errors.value);
+    });
 };
+console.log(errors.value);
 </script>
 <template>
   <form
@@ -68,6 +68,9 @@ const registerUser = async () => {
       >
         Sign in
       </RouterLink>
+    </p>
+    <p class="text-red-500 text-sm font-bold" v-for="error in errors">
+      {{ error }}
     </p>
   </form>
 </template>

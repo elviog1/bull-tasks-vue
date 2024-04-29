@@ -7,6 +7,7 @@ import { useRouter } from "vue-router";
 const date = ref<Date>(new Date());
 const title = ref("");
 const description = ref("");
+const errors = ref([]);
 const authStore = useAuthStore();
 const userId = authStore.userId;
 const router = useRouter();
@@ -23,7 +24,10 @@ const handleSubmit = async () => {
       console.log(res);
       router.push("/profile");
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e);
+      errors.value = e.response.data.message;
+    });
 };
 </script>
 <template>
@@ -50,6 +54,9 @@ const handleSubmit = async () => {
     >
       Save
     </button>
+    <p class="text-red-500 text-sm font-bold" v-for="error in errors">
+      {{ error }}
+    </p>
   </form>
 </template>
 <style></style>
