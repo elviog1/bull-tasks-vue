@@ -14,7 +14,7 @@ const loginUser = async () => {
     password: password.value,
   };
   const response = await axios
-    .post("http://localhost:4000/api/auth/login", userData)
+    .post("https://bull-tasks-nest.onrender.com/api/auth/login", userData)
     .then((res) => {
       console.log(res);
       const token = res.data.token;

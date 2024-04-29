@@ -9,11 +9,11 @@ console.log(propTask.task)
 const router = useRouter()
 
 const handleUpdate = (id:string)=>{
-  router.push(`profile/task-update/${id}`)
+  router.push(`/profile/task-update/${id}`)
 }
 
 const handleDeleteTask = (id:string)=>{
-  const response = axios.delete(`http://localhost:4000/api/task/${id}`).then(res => {
+  const response = axios.delete(`https://bull-tasks-nest.onrender.com/api/task/${id}`).then(res => {
     console.log(res)
   }).catch(e => console.log(e))
 }

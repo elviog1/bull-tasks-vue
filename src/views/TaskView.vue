@@ -33,7 +33,7 @@ const handleDeleteTask = (id: string) => {
         icon: "success",
       });
       const response = axios
-        .delete(`http://localhost:4000/api/task/${id}`)
+        .delete(`https://bull-tasks-nest.onrender.com/api/task/${id}`)
         .then((res) => {
           getAllTasks();
         });
@@ -44,7 +44,7 @@ const handleDeleteTask = (id: string) => {
 const getAllTasks = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:4000/api/task/${userId}`
+      `https://bull-tasks-nest.onrender.com/api/task/${userId}`
     );
     tasks.value = response.data;
   } catch (error) {

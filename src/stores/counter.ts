@@ -41,7 +41,7 @@ export const useAuthStore = defineStore({
       const userId = this.userId;
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/task/${userId}`
+          `https://bull-tasks-nest.onrender.com/api/task/${userId}`
         );
         this.tasks = response.data; // Actualiza el estado de las tareas con los datos obtenidos del servidor
       } catch (error) {

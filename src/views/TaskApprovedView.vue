@@ -28,7 +28,7 @@ const handleDeleteTask = (id: string) => {
         icon: "success",
       });
       const response = axios
-        .delete(`http://localhost:4000/api/task/${id}`)
+        .delete(`https://bull-tasks-nest.onrender.com/api/task/${id}`)
         .then((res) => {
           getAllTasks();
         });
@@ -39,7 +39,7 @@ const handleDeleteTask = (id: string) => {
 const getAllTasks = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:4000/api/task/${userId}`
+      `https://bull-tasks-nest.onrender.com/api/task/${userId}`
     );
     tasks.value = response.data;
     tasksApproved.value = tasks.value.filter(
@@ -58,7 +58,7 @@ onMounted(async () => {
   <div className="w-full overflow-y-auto max-h-screen">
     <div className="py-10">
       <h1 className="text-center text-3xl font-bold text-zinc-300 py-6">
-        Tasks Rejected ({{ tasksApproved?.length }})
+        Tasks Approved ({{ tasksApproved?.length }})
       </h1>
       <div class="flex flex-wrap gap-4 justify-center">
         <TaskCard

@@ -17,7 +17,10 @@ const handleUpdate = async () => {
       date: propsTask.task?.date,
     };
     const response = await axios
-      .put(`http://localhost:4000/api/task/${propsTask?.task?._id}`, taskData)
+      .put(
+        `https://bull-tasks-nest.onrender.com/api/task/${propsTask?.task?._id}`,
+        taskData
+      )
       .then((res) => {
         router.push("/profile");
       });

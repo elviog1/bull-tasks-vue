@@ -5,7 +5,7 @@ import { RouterLink, useRouter } from "vue-router";
 const username = ref("");
 const email = ref("");
 const password = ref("");
-const router = useRouter()
+const router = useRouter();
 
 const registerUser = async () => {
   const userData = {
@@ -16,10 +16,10 @@ const registerUser = async () => {
 
   try {
     const response = axios
-      .post("http://localhost:4000/api/auth/register", userData)
+      .post("https://bull-tasks-nest.onrender.com/api/auth/register", userData)
       .then((res) => {
         console.log(res);
-        router.push("/sign-in")
+        router.push("/sign-in");
       })
       .catch((e) => console.log(e));
   } catch (error) {
