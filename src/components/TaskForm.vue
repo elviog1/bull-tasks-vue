@@ -36,10 +36,11 @@ const handleSubmit = async () => {
     @submit.prevent="handleSubmit"
   >
     <input
-      className="w-full p-2 my-2 rounded-md "
+      className="w-full p-2 my-2 rounded-md"
       type="text"
       placeholder="Title"
       v-model="title"
+      maxlength="20"
     />
 
     <textarea
@@ -47,6 +48,7 @@ const handleSubmit = async () => {
       placeholder="Description"
       rows="4"
       v-model="description"
+      maxlength="300"
     ></textarea>
     <Calendar v-model="date" touchUI class="w-full text-xl mb-2" />
     <button

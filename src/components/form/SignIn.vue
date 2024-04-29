@@ -34,6 +34,7 @@ console.log(errors.value);
     className="max-w-md bg-zinc-700 p-5 rounded-md"
     @submit.prevent="loginUser"
   >
+    <span className="text-2xl font-semibold text-white">Login</span>
     <input
       type="email"
       className="p-2 my-2 rounded-md w-full"

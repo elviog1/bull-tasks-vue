@@ -3,31 +3,23 @@ import { sidebarLinks } from "../constants/sidebarLinks";
 import { RouterLink } from "vue-router";
 import Bull from "../assets/bull.png";
 import { useAuthStore } from "@/stores/counter";
-const authStore = useAuthStore()
-// const username = getUsernameFromToken()
-const name = authStore.username
-const logout = ()=>{
-  authStore.logout()
-}
-// function getUsernameFromToken(){
-//   const token = authStore.token
-//   const tokenPayload = token.split('.')[1]
-//   const decodedToken = JSON.parse(atob(tokenPayload))
-
-//   return decodedToken.username
-// }
+const authStore = useAuthStore();
+const name = authStore.username;
+const logout = () => {
+  authStore.logout();
+};
 </script>
 <template>
   <section
     class="text-zinc-300 bg-zinc-800 max-w-xs w-full flex justify-center"
   >
-    <div class="flex flex-col justify-between py-4 w-full items-center">
+    <div class="flex flex-col justify-between py-4 w-full">
       <!-- LOGO & USERNAME -->
-      <div class="flex flex-col items-center gap-3">
+      <div class="flex flex-cole items-center gap-3 p-2">
         <img :src="Bull" alt="Bull logo" className="w-10" />
         <p className=" text-sm hidden md:block">
           <!-- Welcome <span className="text-indigo-500">{{username}}</span> -->
-          Welcome <span className="text-indigo-500">{{name}}</span>
+          Welcome <span className="text-indigo-500">{{ name }}</span>
         </p>
       </div>
 
@@ -57,7 +49,7 @@ const logout = ()=>{
       <!-- LOG OUT -->
       <div class="w-full">
         <RouterLink
-        @click="logout"
+          @click="logout"
           to="/"
           class="text-2xl p-2 flex items-center gap-3 hover:bg-zinc-700 duration-300 text-zinc-500 hover:text-zinc-300"
         >

@@ -7,26 +7,26 @@ const router = useRouter();
 const propsTask = defineProps({
   task: Object,
 });
+const errors = ref([]);
 console.log(propsTask.task?.date);
 const handleUpdate = async () => {
-  try {
-    const taskData = {
-      title: propsTask.task?.title,
-      description: propsTask.task?.description,
-      status: propsTask.task?.status,
-      date: propsTask.task?.date,
-    };
-    const response = await axios
-      .put(
-        `https://bull-tasks-nest.onrender.com/api/task/${propsTask?.task?._id}`,
-        taskData
-      )
-      .then((res) => {
-        router.push("/profile");
-      });
-  } catch (error) {
-    console.log(error);
-  }
+  const taskData = {
+    title: propsTask.task?.title,
+    description: propsTask.task?.description,
+    status: propsTask.task?.status,
+    date: propsTask.task?.date,
+  };
+  const response = await axios
+    .put(
+      `https://bull-tasks-nest.onrender.com/api/task/${propsTask?.task?._id}`,
+      taskData
+    )
+    .then((res) => {
+      router.push("/profile");
+    })
+    .catch((e) => {
+      errors.value = e.response.data.message;
+    });
 };
 </script>
 <template>
@@ -40,6 +40,7 @@ const handleUpdate = async () => {
       type="text"
       placeholder="Title"
       v-model="propsTask.task.title"
+      maxlength="20"
     />
 
     <textarea
@@ -47,6 +48,7 @@ const handleUpdate = async () => {
       placeholder="Description"
       rows="3"
       v-model="propsTask.task.description"
+      maxlength="300"
     ></textarea>
 
     <Calendar
@@ -68,5 +70,8 @@ const handleUpdate = async () => {
     >
       Save
     </button>
+    <p class="text-red-500 text-sm font-bold" v-for="error in errors">
+      {{ error }}
+    </p>
   </form>
 </template>
