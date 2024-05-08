@@ -18,7 +18,6 @@ const registerUser = async () => {
   const response = await axios
     .post("https://bull-tasks-nest.onrender.com/api/auth/register", userData)
     .then((res) => {
-      console.log(res)
       router.push("/sign-in");
       loadingBool.value = false;
     })
