@@ -11,28 +11,31 @@ const logout = () => {
 </script>
 <template>
   <section
-    class="text-zinc-300 bg-zinc-800 max-w-xs w-full flex justify-center"
+    class="bg-zinc-800 text-zinc-300 font-bold md:max-w-xs w-16 md:w-full flex flex-col items-center h-screen justify-center gap-10"
   >
-    <div class="flex flex-col justify-between py-4 w-full">
+    <div class="flex flex-col gap-4">
       <!-- LOGO & USERNAME -->
-      <div class="flex flex-cole items-center gap-3 p-2">
+      <div class="flex gap-2 items-center">
         <img :src="Bull" alt="Bull logo" className="w-10" />
-        <p className=" text-sm hidden md:block">
+        <h1 className=" text-2xl md:text-4xl duration-100 hidden md:block">Bull Tasks</h1>
+      </div>
+        <p className="text-sm hidden md:block">
           <!-- Welcome <span className="text-indigo-500">{{username}}</span> -->
           Welcome <span className="text-indigo-500">{{ name }}</span>
         </p>
-      </div>
 
       <!-- LINKS TASKS -->
-      <div class="flex flex-col w-full">
+      <div class="flex flex-col gap-2">
         <RouterLink
           v-for="link in sidebarLinks"
           :key="link.label"
           :to="link.route"
-          class="text-2xl p-2 flex items-center gap-3 hover:bg-zinc-700 duration-300 text-zinc-500 hover:text-zinc-300"
+          class="flex items-center text-xl w-full p-2 rounded-md gap-4 hover:bg-zinc-700 duration-200"
         >
-          <i :class="[link.icon, link.color]"></i>
-          {{ link.label }}
+          <i class="text-2xl" :class="[link.icon, link.color]"></i>
+          <span class="hidden md:block">
+              {{ link.label }}
+          </span>
         </RouterLink>
       </div>
 
@@ -40,10 +43,14 @@ const logout = () => {
       <div class="w-full">
         <RouterLink
           to="/profile/new-task"
-          class="text-2xl p-2 flex items-center gap-3 hover:bg-zinc-700 duration-300 text-zinc-500 hover:text-zinc-300"
+          class="flex text-xl gap-4 items-center justify-start  p-2 rounded-md hover:bg-zinc-700 duration-200"
         >
-          <i class="pi pi-folder-plus text-blue-500"></i>
-          New Task</RouterLink
+          <i class="pi pi-folder-plus text-blue-500 text-2xl "></i>
+          <span class="hidden md:block" >
+            New Task
+            
+          </span>
+          </RouterLink
         >
       </div>
       <!-- LOG OUT -->
@@ -51,10 +58,14 @@ const logout = () => {
         <RouterLink
           @click="logout"
           to="/"
-          class="text-2xl p-2 flex items-center gap-3 hover:bg-zinc-700 duration-300 text-zinc-500 hover:text-zinc-300"
+          class="flex text-xl gap-4 items-center justify-start  p-2 rounded-md hover:bg-zinc-700 duration-200"
         >
-          <i class="pi pi-sign-out text-zinc-400"></i>
-          Log out</RouterLink
+          <i class="pi pi-sign-out text-zinc-400 text-2xl"></i>
+<span class="hidden md:block" >
+
+  Log out
+</span>
+          </RouterLink
         >
       </div>
     </div>
