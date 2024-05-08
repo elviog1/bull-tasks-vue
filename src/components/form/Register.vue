@@ -7,8 +7,9 @@ const email = ref("");
 const password = ref("");
 const router = useRouter();
 const errors = ref([]);
-
+const loadingBool = ref(false)
 const registerUser = async () => {
+  loadingBool.value = true;
   const userData = {
     username: username.value,
     email: email.value,
@@ -17,10 +18,13 @@ const registerUser = async () => {
   const response = await axios
     .post("https://bull-tasks-nest.onrender.com/api/auth/register", userData)
     .then((res) => {
+      console.log(res)
       router.push("/sign-in");
+      loadingBool.value = false;
     })
     .catch((e) => {
       errors.value = e.response.data.message;
+      loadingBool.value = false;
     });
 };
 </script>
@@ -69,5 +73,11 @@ const registerUser = async () => {
     <p class="text-red-500 text-sm font-bold" v-for="error in errors">
       {{ error }}
     </p>
+    <div class="flex justify-center">
+      <p
+        class="animate-spin rounded-full border-t-4 border-blue-500 border-solid h-12 w-12"
+        v-if="loadingBool"
+      ></p>
+    </div>
   </form>
 </template>
